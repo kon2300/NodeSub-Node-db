@@ -1,0 +1,39 @@
+version: '3.8'
+
+volumes:
+  db_store:
+networks:
+  node_mysql:
+
+services:
+  api:
+    image: node:16.3.0-alpine3.11
+    container_name: api_node
+    volumes:
+      - ./api:/api
+    ports:
+      - '3000:3000'
+    working_dir: /api
+    stdin_open: true
+    tty: true
+    environment:
+      - TZ=Asia/Tokyo
+      - DEBUG=api:*
+    depends_on:
+      - db
+    networks:
+      - node_mysql
+    # コンテナ作成しapiインストール後にコメントアウトを外す
+    # command: yarn start
+  db:
+    image: mysql:8.0
+    env_file: .env
+    container_name: db_mysql
+    volumes:
+      - db_store:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/init_db:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    networks:
+      - node_mysql
