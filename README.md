@@ -9,49 +9,26 @@
 ## Requirement
 
 - [Docker](https://www.docker.com/products/docker-desktop)/docker-compose 3.8
+- [Express 4.16.1](https://expressjs.com/ja/starter/installing.html)
 
 ## Usage
 
-1. `.env` ファイル を作成する(???は適当なものを入力してください)
+1. `.env` ファイル を作成します
 
    ```.env
-   MYSQL_ROOT_PASSWORD=???
-   MYSQL_USERNAME=???
-   MYSQL_PASSWORD=???
-   MYSQL_DATABASE=db_mysql
-   MYSQL_HOST=db
+   cp .env .env.example
    ```
 
-1. **[Docker](https://www.docker.com/products/docker-desktop)** をインストールし **docker-compose.yml** のある場所で下記のコマンドを実行します
+1. イメージを構築するため [Docker](https://www.docker.com/products/docker-desktop) と [Express](https://expressjs.com/ja/starter/installing.html) をインストールし `docker-compose.yml` のある場所で下記のコマンドを実行します
 
    ```sh
-   $ docker-compose up -d
+   $ docker-compose build
    ```
 
-1. コンテナの中に入るには下記のコマンドを実行します
+1. コンテナを起動するため `docker-compose.yml` のある場所で下記のコマンドを実行します
 
    ```sh
-   $ docker exec -ti api_node sh
-   ```
-
-1. コンテナの中で環境を構築するには下記のコマンドを実行します(環境構築後に docker-compose.yml 内の'command'部分のコメントアウトを外してください)
-
-   ```sh
-   yarn init
-   npx express-generator --view=ejs
-   ```
-
-1. Mysql のコンテナに入るためには API コンテナから出て下記のコマンドを実行します
-
-   ```sh
-   $ docker exec -ti db_musql sh
-   ```
-
-1. Mysql に接続するにはコンテナ内で下記のコマンドを実行します(USEWNAME,PASSWORD は.env ファイルと同じものを記述してください)
-
-   ```sh
-   mysql -u {USERNAME} -p
-   {PASSWORDを入力}
+   $ docker-compose up
    ```
 
 ## Author

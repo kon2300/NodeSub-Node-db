@@ -7,13 +7,12 @@ networks:
 
 services:
   api:
-    image: node:16.3.0-alpine3.11
+    build: ./docker
     container_name: api_node
     volumes:
       - ./api:/api
     ports:
       - '3000:3000'
-    working_dir: /api
     stdin_open: true
     tty: true
     environment:
@@ -23,8 +22,7 @@ services:
       - db
     networks:
       - node_mysql
-    # コンテナ作成しapiインストール後にコメントアウトを外す
-    # command: yarn start
+
   db:
     image: mysql:8.0
     env_file: .env
