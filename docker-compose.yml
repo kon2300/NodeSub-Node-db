@@ -1,16 +1,20 @@
 version: '3.8'
 
 volumes:
+  node_module:
   db_store:
 networks:
   node_mysql:
 
 services:
   api:
-    build: ./docker
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
     container_name: api_node
     volumes:
       - ./api:/api
+      - node_module:/api/node_modules
     ports:
       - '3000:3000'
     stdin_open: true

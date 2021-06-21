@@ -9,17 +9,16 @@
 ## Requirement
 
 - [Docker](https://www.docker.com/products/docker-desktop)/docker-compose 3.8
-- [Express 4.16.1](https://expressjs.com/ja/starter/installing.html)
 
 ## Usage
 
 1. `.env` ファイル を作成します
 
-   ```.env
-   cp .env .env.example
+   ```sh
+   $ cp .env.example .env
    ```
 
-1. イメージを構築するため [Docker](https://www.docker.com/products/docker-desktop) と [Express](https://expressjs.com/ja/starter/installing.html) をインストールし `docker-compose.yml` のある場所で下記のコマンドを実行します
+1. イメージを構築するため [Docker](https://www.docker.com/products/docker-desktop) をインストールし `docker-compose.yml` のある場所で下記のコマンドを実行します
 
    ```sh
    $ docker-compose build

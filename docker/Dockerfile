@@ -1,5 +1,11 @@
-FROM node:14.16.1-alpine
+FROM node:16.3.0-alpine3.11
+
 
 WORKDIR /api
 
-CMD [ "yarn", "start" ]
+COPY api/package*.json .
+COPY api/yarn*.lock .
+
+RUN yarn
+
+CMD ["yarn", "start"]
