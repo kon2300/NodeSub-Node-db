@@ -1,0 +1,41 @@
+version: '3.8'
+
+volumes:
+  node_module:
+  db_store:
+networks:
+  node_mysql:
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: api_node
+    volumes:
+      - ./api:/api
+      - node_module:/api/node_modules
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    environment:
+      - TZ=Asia/Tokyo
+      - DEBUG=api:*
+    depends_on:
+      - db
+    networks:
+      - node_mysql
+
+  db:
+    image: mysql:5.7
+    env_file: .env
+    container_name: db_mysql
+    volumes:
+      - db_store:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/init_db:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    networks:
+      - node_mysql
