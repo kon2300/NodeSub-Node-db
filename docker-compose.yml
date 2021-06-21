@@ -28,7 +28,7 @@ services:
       - node_mysql
 
   db:
-    image: mysql:8.0
+    image: mysql:5.7
     env_file: .env
     container_name: db_mysql
     volumes:
